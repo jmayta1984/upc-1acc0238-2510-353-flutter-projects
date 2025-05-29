@@ -1,3 +1,4 @@
+import 'package:demo/home_page.dart';
 import 'package:flutter/material.dart';
 
 class TabNavigation extends StatefulWidget {
@@ -10,7 +11,7 @@ class TabNavigation extends StatefulWidget {
 class _TabNavigationState extends State<TabNavigation> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    Text("Home"),
+    HomePage(),
     Text("Favorites"),
     Text("Cart"),
     Text("Profile"),
@@ -19,7 +20,7 @@ class _TabNavigationState extends State<TabNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: _pages[_selectedIndex]),
+      body: SafeArea(child: _pages[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (value) {
