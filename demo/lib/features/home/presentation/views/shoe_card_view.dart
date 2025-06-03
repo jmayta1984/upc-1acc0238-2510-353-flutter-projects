@@ -14,7 +14,9 @@ class ShoeCardView extends StatelessWidget {
           children: [
             Column(
               children: [
-                Expanded(child: Image.network(shoe.image)),
+                Expanded(
+                  child: Hero(tag: shoe.id, child: Image.network(shoe.image)),
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -22,6 +24,7 @@ class ShoeCardView extends StatelessWidget {
                     Text(
                       shoe.name,
                       style: TextStyle(fontWeight: FontWeight.bold),
+                      maxLines: 1,
                     ),
                     Text(
                       '\$ ${shoe.price}',

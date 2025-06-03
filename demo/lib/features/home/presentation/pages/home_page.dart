@@ -1,4 +1,5 @@
 import 'package:demo/core/themes/color_palette.dart';
+import 'package:demo/features/home/data/datasources/shoe_service.dart';
 import 'package:demo/features/home/domain/entities/shoe.dart';
 import 'package:demo/features/home/presentation/views/banner_view.dart';
 import 'package:demo/features/home/presentation/views/shoe_list_view.dart';
@@ -12,26 +13,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Shoe> _shoes = [
-    Shoe(
-      id: 1,
-      name: 'Adidas Samba',
-      brand: 'Adidas',
-      category: 'Casual',
-      price: 200,
-      image:
-          'https://images.footlocker.com/is/image/EBFL2/IE1333_01?wid=500&hei=500&fmt=png',
-      gender: 'Men',
-      description: 'Nice',
-      rating: 4.8,
-    ),
-  ];
+  List<Shoe> _shoes = [];
+  List<Shoe> _filteredShoes = [];
+
+  Future<void> loadData() async {
+    List<Shoe> shoes = await ShoeService().getShoes();
+    setState(() {
+      _shoes = shoes;
+      _filteredShoes = shoes;
+    });
+  }
+
+  @override
+  void initState() {
+    loadData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TextField(
+          onChanged: (value) {
+            setState(() {
+              _filteredShoes = _shoes
+                  .where(
+                    (e) => e.name.toLowerCase().contains(value.toLowerCase()),
+                  )
+                  .toList();
+            });
+          },
           cursorColor: ColorPalette.primaryColor,
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.search),
@@ -47,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         BannerView(),
-        Expanded(child: ShoeListView(shoes: _shoes)),
+        Expanded(child: ShoeListView(shoes: _filteredShoes)),
       ],
     );
   }
