@@ -1,14 +1,15 @@
-import 'package:demo/home_page.dart';
+import 'package:demo/core/themes/color_palette.dart';
+import 'package:demo/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-class TabNavigation extends StatefulWidget {
-  const TabNavigation({super.key});
+class MainView extends StatefulWidget {
+  const MainView({super.key});
 
   @override
-  State<TabNavigation> createState() => _TabNavigationState();
+  State<MainView> createState() => _MainViewState();
 }
 
-class _TabNavigationState extends State<TabNavigation> {
+class _MainViewState extends State<MainView> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     HomePage(),
@@ -29,7 +30,7 @@ class _TabNavigationState extends State<TabNavigation> {
           });
         },
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color.fromRGBO(255, 103, 57, 1),
+        selectedItemColor: ColorPalette.primaryColor,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(

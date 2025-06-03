@@ -1,4 +1,4 @@
-import 'package:demo/tab_navigation.dart';
+import 'package:demo/features/app/presentation/pages/main_view.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () => {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => TabNavigation()),
+                    MaterialPageRoute(builder: (context) => MainView()),
                   ),
                 },
                 child: Text("Sign in"),
