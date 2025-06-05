@@ -10,6 +10,7 @@ class ShoeDto {
   final String gender;
   final String description;
   final double rating;
+  final List<ShoeSizeDto> sizes;
 
   ShoeDto({
     required this.id,
@@ -21,6 +22,7 @@ class ShoeDto {
     required this.gender,
     required this.description,
     required this.rating,
+    required this.sizes,
   });
 
   factory ShoeDto.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,9 @@ class ShoeDto {
       gender: json['gender'],
       description: json['description'],
       rating: (json['rating'] as num).toDouble(),
+      sizes: (json['sizes_available'] as List)
+          .map((size) => ShoeSizeDto.fromJson(size as Map<String, dynamic>))
+          .toList(),
     );
   }
 
@@ -48,6 +53,31 @@ class ShoeDto {
       gender: gender,
       description: description,
       rating: rating,
+      sizes: sizes.map((size) => size.toDomain()).toList(),
     );
   }
+}
+
+class ShoeSizeDto {
+  final double size;
+  final int quantity;
+
+  ShoeSizeDto({
+    required this.size,
+    required this.quantity,
+  });
+
+  factory ShoeSizeDto.fromJson(Map<String, dynamic> json) {
+    return ShoeSizeDto(
+      size: (json['size'] as num).toDouble(),
+      quantity: json['quantity'],
+    );
+  }
+  ShoeSize toDomain() {
+    return ShoeSize(
+      size: size.toString(),
+      quantity: quantity,
+    );
+  }
+  
 }

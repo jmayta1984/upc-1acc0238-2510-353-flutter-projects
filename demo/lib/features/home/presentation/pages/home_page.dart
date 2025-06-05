@@ -1,9 +1,11 @@
 import 'package:demo/core/themes/color_palette.dart';
-import 'package:demo/features/home/data/datasources/shoe_service.dart';
-import 'package:demo/features/home/domain/entities/shoe.dart';
-import 'package:demo/features/home/presentation/views/banner_view.dart';
-import 'package:demo/features/home/presentation/views/shoe_list_view.dart';
+import 'package:demo/features/home/presentation/blocs/shoe_bloc.dart';
+import 'package:demo/features/home/presentation/blocs/shoe_event.dart';
+import 'package:demo/features/home/presentation/blocs/shoe_state.dart';
+import 'package:demo/features/home/presentation/widgets/banner_view.dart';
+import 'package:demo/features/home/presentation/widgets/shoe_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,21 +15,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  /*
   List<Shoe> _shoes = [];
   List<Shoe> _filteredShoes = [];
 
   Future<void> loadData() async {
-    List<Shoe> shoes = await ShoeService().getShoes();
-    setState(() {
-      _shoes = shoes;
-      _filteredShoes = shoes;
-    });
+    List<Shoe> shoes = await ShoeRepository(
+      shoeService: ShoeService(),
+    ).getShoes();
+    if (mounted) {
+      setState(() {
+        _shoes = shoes;
+        _filteredShoes = shoes;
+      });
+    }
   }
-
+*/
   @override
   void initState() {
-    loadData();
+    //loadData();
     super.initState();
+    context.read<ShoeBloc>().add(GetShoes());
   }
 
   @override
@@ -36,13 +44,17 @@ class _HomePageState extends State<HomePage> {
       children: [
         TextField(
           onChanged: (value) {
-            setState(() {
-              _filteredShoes = _shoes
-                  .where(
-                    (e) => e.name.toLowerCase().contains(value.toLowerCase()),
-                  )
-                  .toList();
-            });
+            /*
+            if (mounted) {
+              setState(() {
+                _filteredShoes = _shoes
+                    .where(
+                      (e) => e.name.toLowerCase().contains(value.toLowerCase()),
+                    )
+                    .toList();
+              });
+            }
+            */
           },
           cursorColor: ColorPalette.primaryColor,
           decoration: InputDecoration(
@@ -59,7 +71,22 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         BannerView(),
-        Expanded(child: ShoeListView(shoes: _filteredShoes)),
+        BlocBuilder<ShoeBloc, ShoeState>(
+          builder: (context, state) {
+            if (state is LoadingShoeState) {
+              return Expanded(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: ColorPalette.primaryColor,
+                  ),
+                ),
+              );
+            } else if (state is LoadedShoeState) {
+              return Expanded(child: ShoeListView(shoes: state.shoes));
+            }
+            return Center();
+          },
+        ),
       ],
     );
   }

@@ -8,6 +8,7 @@ class Shoe {
   final String gender;
   final String description;
   final double rating;
+  final List<ShoeSize> sizes;
 
   Shoe({
     required this.id,
@@ -19,5 +20,17 @@ class Shoe {
     required this.gender,
     required this.description,
     required this.rating,
+    required this.sizes
   });
+}
+
+class ShoeSize {
+  final String size;
+  final int quantity;
+
+  ShoeSize({
+    required this.size,
+    required this.quantity,
+  });
+  
 }
