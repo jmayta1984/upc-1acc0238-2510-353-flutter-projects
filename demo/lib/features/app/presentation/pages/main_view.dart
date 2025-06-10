@@ -1,4 +1,5 @@
 import 'package:demo/core/themes/color_palette.dart';
+import 'package:demo/features/favorites/presentation/pages/favorites_page.dart';
 import 'package:demo/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class _MainViewState extends State<MainView> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     HomePage(),
-    Text("Favorites"),
+    FavoritesPage(),
     Text("Cart"),
     Text("Profile"),
   ];
@@ -32,16 +33,26 @@ class _MainViewState extends State<MainView> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: ColorPalette.primaryColor,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            activeIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.favorite),
+            icon: Icon(Icons.favorite_outline),
             label: "Favorites",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
+            activeIcon: Icon(Icons.shopping_cart),
+            icon: Icon(Icons.shopping_cart_outlined),
             label: "Cart",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.person),
+            icon: Icon(Icons.person_outlined),
+            label: "Profile",
+          ),
         ],
       ),
     );
