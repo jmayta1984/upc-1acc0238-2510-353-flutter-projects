@@ -55,7 +55,9 @@ class _ShoeDetailPageState extends State<ShoeDetailPage> {
                       top: 60,
                       right: 0,
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          
+                        },
                         icon: Icon(Icons.favorite_border),
                       ),
                     ),
