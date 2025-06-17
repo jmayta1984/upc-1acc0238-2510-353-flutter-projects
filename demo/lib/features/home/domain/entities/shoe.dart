@@ -9,6 +9,7 @@ class Shoe {
   final String description;
   final double rating;
   final List<ShoeSize> sizes;
+  final bool isFavorite;
 
   Shoe({
     required this.id,
@@ -20,17 +21,30 @@ class Shoe {
     required this.gender,
     required this.description,
     required this.rating,
-    required this.sizes
+    required this.sizes,
+    required this.isFavorite,
   });
+
+  Shoe copy({required bool isFavorite}) {
+    return Shoe(
+      id: id,
+      name: name,
+      brand: brand,
+      category: category,
+      price: price,
+      image: image,
+      gender: gender,
+      description: description,
+      rating: rating,
+      sizes: sizes,
+      isFavorite: isFavorite,
+    );
+  }
 }
 
 class ShoeSize {
   final String size;
   final int quantity;
 
-  ShoeSize({
-    required this.size,
-    required this.quantity,
-  });
-  
+  ShoeSize({required this.size, required this.quantity});
 }

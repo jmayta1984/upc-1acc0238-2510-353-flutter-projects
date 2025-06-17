@@ -27,10 +27,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                create: (context) => ShoeBloc(),
-                child: MainView(),
-              ),
+              builder: (context) => MainView(),
             ),
           );
         } else if (state is FailureState) {
