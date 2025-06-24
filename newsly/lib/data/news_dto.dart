@@ -8,6 +8,7 @@ class NewsDto {
   final String urlToImage;
   final String publishedAt;
   final String content;
+  final SourceDto source;
 
   const NewsDto({
     required this.author,
@@ -17,6 +18,7 @@ class NewsDto {
     required this.urlToImage,
     required this.publishedAt,
     required this.content,
+    required this.source,
   });
 
   factory NewsDto.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ class NewsDto {
       urlToImage: json['urlToImage'] ?? '',
       publishedAt: json['publishedAt'] ?? '',
       content: json['content'] ?? '',
+      source: SourceDto.fromJson(json['source'] ?? {}),
     );
   }
 
@@ -37,6 +40,26 @@ class NewsDto {
       author: author,
       image: urlToImage,
       year: publishedAt.split('-')[0],
+      content: content,
+      source: source.name,
+      description: description
+    );
+  }
+}
+
+class SourceDto {
+  final String id;
+  final String name;
+
+  const SourceDto({
+    required this.id,
+    required this.name,
+  });
+
+  factory SourceDto.fromJson(Map<String, dynamic> json) {
+    return SourceDto(
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
     );
   }
 }

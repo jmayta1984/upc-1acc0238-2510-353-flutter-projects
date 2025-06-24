@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsly/domain/news.dart';
+import 'package:newsly/presentation/news_detail_page.dart';
+import 'package:newsly/presentation/news_list_item_view.dart';
 
 class NewsListView extends StatelessWidget {
   const NewsListView({super.key, required this.newsList});
@@ -13,44 +15,16 @@ class NewsListView extends StatelessWidget {
       itemBuilder: (context, index) {
         final news = newsList[index];
 
-        return Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: SizedBox(
-                  height: 200,
-                  width: double.infinity,
-                  child: Image.network(
-                    height: 200,
-                    width: double.infinity,
-                    news.image,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        const Center(child: Icon(Icons.error)),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(news.year),
-                    Text(
-                      news.title,
-                      maxLines: 1,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(news.author)
-                  ],
-                ),
-              ),
-            ],
-          ),
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => NewsDetailPage(news: news),
+            ));
+          },
+          child: NewsListItemView(news: news),
         );
       },
     );
   }
 }
+

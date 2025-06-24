@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsly/presentation/favorites_page.dart';
 import 'package:newsly/presentation/find_news_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _pages = [
     FindNewsPage(),
-    Center(child: Text('Favorites')),
+    FavoritesPage(),
   ];
   @override
   Widget build(BuildContext context) {
