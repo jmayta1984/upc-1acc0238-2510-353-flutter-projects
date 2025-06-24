@@ -17,4 +17,28 @@ class FavoriteNewsDao {
     final List<Map<String, dynamic>> maps = await db.query('news');
     return maps.map((map) => FavoriteNewsDto.fromDatabase(map).toDomain()).toList();
   }
+
+  Future<void> removeFavoriteNews(String title) async {
+    Database db = await AppDatabase().database;
+    await db.delete(
+      'news',
+      where: 'title = ?',
+      whereArgs: [title],
+    );
+  }
+
+  Future<void> clearFavorites() async {
+    Database db = await AppDatabase().database;
+    await db.delete('news');
+  }
+
+  Future<bool> isFavorite(String title) async {
+    Database db = await AppDatabase().database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'news',
+      where: 'title = ?',
+      whereArgs: [title],
+    );
+    return maps.isNotEmpty;
+  }
 }
