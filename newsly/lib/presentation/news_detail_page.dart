@@ -19,6 +19,19 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
   bool _isFavorite = false;
 
   @override
+  void initState() {
+    super.initState();
+    _checkIfFavorite();
+  }
+
+  void _checkIfFavorite() async {
+    final isFavorite = await FavoriteNewsDao().isFavorite(widget.news.title);
+    setState(() {
+      _isFavorite = isFavorite;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final news = widget.news;
     final height = MediaQuery.of(context).size.height * 0.4;
