@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mynasainsights/presentation/favorites_page.dart';
 import 'package:mynasainsights/presentation/photos_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
     const PhotosPage(), // Photos Page
-    const Placeholder(), // Favorites Page
+    const FavoritesPage(), // Favorites Page
 
   ];
   @override

@@ -41,14 +41,18 @@ class _PhotosPageState extends State<PhotosPage> {
               selected: _value == _rovers.indexOf(rover),
               onSelected: (selected) {
                 setState(() {
-                  _value = selected ? _rovers.indexOf(rover) : 0;
+                  _value = _rovers.indexOf(rover);
                   _loadData();
                 });
               },
             );
           }).toList(),
         ),
-        Expanded(child: PhotoListView(photos: _photos)),
+        Expanded(
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 1500),
+            child: PhotoListView(key: ValueKey(_value), photos: _photos)),
+        ),
       ],
     );
   }
